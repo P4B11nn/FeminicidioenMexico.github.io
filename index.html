@@ -302,7 +302,7 @@
             <div class="timeline-item right">
                 <h3>2009: Caso Campo Algodonero</h3>
                 <div class="timeline-content">
-                    <img src="campo-algodonero.jpg" alt="Caso Campo Algodonero" class="timeline-image">
+                    <img src="images/campo-algodonero.jpg" alt="Caso Campo Algodonero" class="timeline-image">
                     <p>La Corte Interamericana de Derechos Humanos falla en contra del Estado mexicano por no investigar adecuadamente los feminicidios ocurridos en el campo algodonero de Ciudad Juárez, lo que representa un hito importante en el reconocimiento de los derechos humanos de las mujeres.</p>
                     <a href="https://www.elmundo.es/america/2009/12/11/mexico/1260540003.html" class="link-button">Corte IDH</a>
                 </div>
@@ -313,7 +313,7 @@
                     <img src="images/jalisco-feminicidios.jpg" alt="Feminicidio en Código Penal" class="timeline-image">
                     <p>El feminicidio es tipificado en el Código Penal Federal, estableciendo penas más severas para quienes cometan este delito. Esto marca un avance en la legislación mexicana al reconocer el feminicidio como un crimen de odio y violencia de género.</p>
                     <a href="https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1405-94362012000200012" class="link-button">Articulo</a>
-                    <a href="https://mexico.justia.com/federales/codigos/codigo-penal-federal/libro-segundo/titulo-decimonoveno/capitulo-v/" class="link-button">Justia México</a>
+                    <a href="https://mexico.justia.com/federales/codigos/codigo-penal-federal/libro-segundo/titulo-decimonoveno/capitulo-v/" class="link-button">Codigo Penal</a>
                 </div>
             </div>
             <div class="timeline-item right">
@@ -338,6 +338,7 @@
             const startPosition = 50; // % desde top
             const endPosition = 0; // % desde top cuando es pequeño
             const animationEnd = window.innerHeight * 0.7; // 70% de la altura de la ventana
+            const fadeOutEnd = window.innerHeight * 1.2; // Donde el título desaparecerá por completo
             
             // Mostrar primer elemento de la línea de tiempo
             const firstItem = document.querySelector('.timeline-item');
@@ -348,6 +349,7 @@
                 const scrollPosition = window.scrollY;
                 
                 if (scrollPosition <= animationEnd) {
+                    // Primera fase: reducir tamaño y mover hacia arriba
                     const scrollRatio = Math.min(scrollPosition / animationEnd, 1);
                     
                     // Tamaño intermedio
@@ -359,23 +361,29 @@
                     // Aplicar transformaciones
                     title.style.fontSize = `${currentSize}rem`;
                     title.style.transform = `translate(-50%, -${currentPosition}%)`;
+                    title.style.opacity = "1";
                     
-                    // Cambiar a posición fija en la parte superior cuando sea pequeño
-                    if (scrollRatio > 0.95) {
-                        title.style.position = 'fixed';
-                        title.style.top = '0';
-                        title.style.transform = 'translate(-50%, 0)';
-                        title.style.padding = '1rem';
-                        title.style.background = '#000';
-                        title.style.width = '100%';
-                        title.style.zIndex = '50';
-                    } else {
-                        title.style.position = 'fixed';
-                        title.style.top = '50%';
-                        title.style.transform = `translate(-50%, -${currentPosition}%)`;
-                        title.style.padding = '0';
-                        title.style.background = 'transparent';
-                    }
+                    title.style.position = 'fixed';
+                    title.style.top = '50%';
+                    title.style.transform = `translate(-50%, -${currentPosition}%)`;
+                    title.style.padding = '0';
+                    title.style.background = 'transparent';
+                } 
+                else if (scrollPosition <= fadeOutEnd) {
+                    // Segunda fase: desvanecer hacia atrás
+                    const fadeRatio = 1 - Math.min((scrollPosition - animationEnd) / (fadeOutEnd - animationEnd), 1);
+                    
+                    title.style.fontSize = `${minSize}rem`;
+                    title.style.opacity = fadeRatio.toString();
+                    title.style.transform = `translate(-50%, 0) scale(${fadeRatio})`;
+                    title.style.position = 'fixed';
+                    title.style.top = '0';
+                    title.style.padding = '1rem';
+                    title.style.zIndex = '50';
+                } 
+                else {
+                    // Completamente oculto
+                    title.style.opacity = "0";
                 }
             }
             
@@ -406,30 +414,13 @@
                     title.style.top = '50%';
                     title.style.padding = '0';
                     title.style.background = 'transparent';
+                    title.style.opacity = "1";
                 }
             });
             
             // Inicializar
             animateMainTitle();
             animateTimelineItems();
-            
-            // Hacer que las imágenes sean interactivas
-            timelineImages = document.querySelectorAll('.timeline-image');
-            timelineImages.forEach(image => {
-                image.addEventListener('click', function() {
-                    // Encontrar el enlace "Leer más" asociado con esta imagen
-                    const parentContent = this.closest('.timeline-content');
-                    const link = parentContent.querySelector('.link-button');
-                    if (link && link.href) {
-                        window.open(link.href, '_blank');
-                    }
-                });
-            });
-            
-            // Añadir tooltip para mejorar la experiencia de usuario
-            timelineImages.forEach(image => {
-                image.title = "Haz clic para ver más información";
-            });
             
             // Hacer que las imágenes sean interactivas
             const timelineImages = document.querySelectorAll('.timeline-image');
