@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Línea del Tiempo: Feminicidio en México</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #intro {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        #intro h1 {
+            font-size: 6rem;
+            color: #fff;
+            transition: all 0.4s ease-out;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            will-change: transform, font-size;
+        }
+
+        #timeline-section {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            padding-top: 100vh; /* Espacio para el título inicial */
+        }
+
+        /* Estilos de la línea de tiempo (mantenidos igual) */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #fff;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .timeline-content {
+            margin-top: 1rem;
+            color: #fff;
+            font-size: 1.25rem;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .timeline-item.visible .timeline-content {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+
+        .timeline h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .timeline-item.visible h3 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item.left {
+            text-align: right;
+            padding-right: calc(50% + 40px);
+            padding-left: 20px;
+        }
+
+        .timeline-item.right {
+            text-align: left;
+            padding-left: calc(50% + 40px);
+            padding-right: 20px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            top: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease-out 0.2s;
+        }
+
+        .timeline-item.visible::after {
+            opacity: 1;
+        }
+
+        .timeline-item.left::after {
+            right: calc(50% - 30px);
+        }
+
+        .timeline-item.right::after {
+            left: calc(50% - 30px);
+        }
+
+        .timeline-item.left .timeline-content::before {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .timeline-item.right .timeline-content::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            #intro h1 {
+                font-size: 4rem;
+            }
+            
+            .timeline::before {
+                left: 40px;
+            }
+            
+            .timeline-item.left,
+            .timeline-item.right {
+                text-align: left;
+                padding: 0 0 0 80px;
+                padding-right: 20px;
+            }
+            
+            .timeline-item.left::after,
+            .timeline-item.right::after {
+                left: 30px;
+            }
+
+            .timeline-item.right .timeline-content::before,
+            .timeline-item.left .timeline-content::before {
+                left: -10px;
+                right: auto;
+                border-right: 10px solid rgba(255, 255, 255, 0.2);
+                border-left: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="intro">
+        <h1>Feminicidio en México</h1>
+    </div>
+
+    <div id="timeline-section" class="container mx-auto">
+        <div class="timeline">
+            <!-- Contenido de la línea de tiempo (igual que antes) -->
+            <div class="timeline-item left">
+                <h3>1993: Inicio en Ciudad Juárez</h3>
+                <div class="timeline-content">
+                    <p>Se reportan feminicidios sistemáticos en Ciudad Juárez, captando atención internacional. Este evento marca el inicio de la visibilidad del feminicidio en México como un problema grave y no atendido, especialmente en la zona fronteriza con los Estados Unidos.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <h3>2001: Lilia Alejandra García Andrade</h3>
+                <div class="timeline-content">
+                    <p>El feminicidio de Lilia Alejandra impulsa la lucha de su madre y visibiliza la crisis de desapariciones de mujeres en el norte de México. La movilización por su caso pone en evidencia las deficiencias en el sistema de justicia mexicano.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <h3>2007: Ley General</h3>
+                <div class="timeline-content">
+                    <p>Se publica la Ley General de Acceso de las Mujeres a una Vida Libre de Violencia, que establece un marco legal para la prevención, sanción y erradicación de la violencia de género, incluyendo el feminicidio como un delito específico.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <h3>2009: Caso Campo Algodonero</h3>
+                <div class="timeline-content">
+                    <p>La Corte Interamericana de Derechos Humanos falla en contra del Estado mexicano por no investigar adecuadamente los feminicidios ocurridos en el campo algodonero de Ciudad Juárez, lo que representa un hito importante en el reconocimiento de los derechos humanos de las mujeres.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <h3>2012: Feminicidio en Código Penal</h3>
+                <div class="timeline-content">
+                    <p>El feminicidio es tipificado en el Código Penal Federal, estableciendo penas más severas para quienes cometan este delito. Esto marca un avance en la legislación mexicana al reconocer el feminicidio como un crimen de odio y violencia de género.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <h3>2022: Caso Debanhi Escobar</h3>
+                <div class="timeline-content">
+                    <p>El caso de Debanhi Escobar, una joven que desaparece y es encontrada muerta, pone de nuevo en la palestra las fallas del sistema de justicia en México para investigar y sancionar los feminicidios. Su caso simboliza las luchas actuales por la justicia para las mujeres desaparecidas y asesinadas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const title = document.querySelector('#intro h1');
+            const timelineSection = document.getElementById('timeline-section');
+            
+            // Tamaños y posiciones
+            const maxSize = 6; // rem
+            const minSize = 1.5; // rem
+            const startPosition = 50; // % desde top
+            const endPosition = 0; // % desde top cuando es pequeño
+            const animationEnd = window.innerHeight * 0.7; // 70% de la altura de la ventana
+            
+            // Mostrar primer elemento de la línea de tiempo
+            const firstItem = document.querySelector('.timeline-item');
+            if (firstItem) firstItem.classList.add('visible');
+            
+            // Función para animar el título principal
+            function animateMainTitle() {
+                const scrollPosition = window.scrollY;
+                
+                if (scrollPosition <= animationEnd) {
+                    const scrollRatio = Math.min(scrollPosition / animationEnd, 1);
+                    
+                    // Tamaño intermedio
+                    const currentSize = maxSize - (scrollRatio * (maxSize - minSize));
+                    
+                    // Posición vertical
+                    const currentPosition = startPosition - (scrollRatio * (startPosition - endPosition));
+                    
+                    // Aplicar transformaciones
+                    title.style.fontSize = `${currentSize}rem`;
+                    title.style.transform = `translate(-50%, -${currentPosition}%)`;
+                    
+                    // Cambiar a posición fija en la parte superior cuando sea pequeño
+                    if (scrollRatio > 0.95) {
+                        title.style.position = 'fixed';
+                        title.style.top = '0';
+                        title.style.transform = 'translate(-50%, 0)';
+                        title.style.padding = '1rem';
+                        title.style.background = '#000';
+                        title.style.width = '100%';
+                        title.style.zIndex = '50';
+                    } else {
+                        title.style.position = 'fixed';
+                        title.style.top = '50%';
+                        title.style.transform = `translate(-50%, -${currentPosition}%)`;
+                        title.style.padding = '0';
+                        title.style.background = 'transparent';
+                    }
+                }
+            }
+            
+            // Función para animar elementos de la línea de tiempo
+            function animateTimelineItems() {
+                const timelineItems = document.querySelectorAll('.timeline-item');
+                const windowHeight = window.innerHeight;
+                const triggerPoint = windowHeight * 0.75;
+                
+                timelineItems.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    if (rect.top < triggerPoint) {
+                        item.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Evento de scroll
+            window.addEventListener('scroll', () => {
+                animateMainTitle();
+                animateTimelineItems();
+                
+                // Resetear al llegar al top
+                if (window.scrollY === 0) {
+                    title.style.fontSize = `${maxSize}rem`;
+                    title.style.transform = 'translate(-50%, -50%)';
+                    title.style.position = 'fixed';
+                    title.style.top = '50%';
+                    title.style.padding = '0';
+                    title.style.background = 'transparent';
+                }
+            });
+            
+            // Inicializar
+            animateMainTitle();
+            animateTimelineItems();
+        });
+    </script>
+</body>
+</html>
