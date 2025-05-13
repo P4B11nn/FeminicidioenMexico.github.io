@@ -87,6 +87,39 @@
             transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
+        /* Estilos para imágenes */
+        .timeline-image {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .timeline-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .link-button {
+            display: inline-block;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .link-button:hover {
+            background: rgba(255, 0, 0, 1);
+            transform: translateY(-2px);
+        }
+
         .timeline-item.visible .timeline-content {
             opacity: 1;
             transform: translateY(0);
@@ -210,37 +243,49 @@
             <div class="timeline-item left">
                 <h3>1993: Inicio en Ciudad Juárez</h3>
                 <div class="timeline-content">
+                    <img src="ciudad-juarez.jpg" alt="Ciudad Juárez" class="timeline-image">
                     <p>Se reportan feminicidios sistemáticos en Ciudad Juárez, captando atención internacional. Este evento marca el inicio de la visibilidad del feminicidio en México como un problema grave y no atendido, especialmente en la zona fronteriza con los Estados Unidos.</p>
+                    <a href="https://example.com/ciudad-juarez" class="link-button">Leer más</a>
                 </div>
             </div>
             <div class="timeline-item right">
                 <h3>2001: Lilia Alejandra García Andrade</h3>
                 <div class="timeline-content">
+                    <img src="lilia-alejandra.jpg" alt="Lilia Alejandra García Andrade" class="timeline-image">
                     <p>El feminicidio de Lilia Alejandra impulsa la lucha de su madre y visibiliza la crisis de desapariciones de mujeres en el norte de México. La movilización por su caso pone en evidencia las deficiencias en el sistema de justicia mexicano.</p>
+                    <a href="https://example.com/lilia-alejandra" class="link-button">Leer más</a>
                 </div>
             </div>
             <div class="timeline-item left">
                 <h3>2007: Ley General</h3>
                 <div class="timeline-content">
+                    <img src="ley-general.jpg" alt="Ley General" class="timeline-image">
                     <p>Se publica la Ley General de Acceso de las Mujeres a una Vida Libre de Violencia, que establece un marco legal para la prevención, sanción y erradicación de la violencia de género, incluyendo el feminicidio como un delito específico.</p>
+                    <a href="https://example.com/ley-general" class="link-button">Leer más</a>
                 </div>
             </div>
             <div class="timeline-item right">
                 <h3>2009: Caso Campo Algodonero</h3>
                 <div class="timeline-content">
+                    <img src="campo-algodonero.jpg" alt="Caso Campo Algodonero" class="timeline-image">
                     <p>La Corte Interamericana de Derechos Humanos falla en contra del Estado mexicano por no investigar adecuadamente los feminicidios ocurridos en el campo algodonero de Ciudad Juárez, lo que representa un hito importante en el reconocimiento de los derechos humanos de las mujeres.</p>
+                    <a href="https://example.com/campo-algodonero" class="link-button">Leer más</a>
                 </div>
             </div>
             <div class="timeline-item left">
                 <h3>2012: Feminicidio en Código Penal</h3>
                 <div class="timeline-content">
+                    <img src="codigo-penal.jpg" alt="Feminicidio en Código Penal" class="timeline-image">
                     <p>El feminicidio es tipificado en el Código Penal Federal, estableciendo penas más severas para quienes cometan este delito. Esto marca un avance en la legislación mexicana al reconocer el feminicidio como un crimen de odio y violencia de género.</p>
+                    <a href="https://example.com/codigo-penal" class="link-button">Leer más</a>
                 </div>
             </div>
             <div class="timeline-item right">
                 <h3>2022: Caso Debanhi Escobar</h3>
                 <div class="timeline-content">
+                    <img src="debanhi-escobar.jpg" alt="Caso Debanhi Escobar" class="timeline-image">
                     <p>El caso de Debanhi Escobar, una joven que desaparece y es encontrada muerta, pone de nuevo en la palestra las fallas del sistema de justicia en México para investigar y sancionar los feminicidios. Su caso simboliza las luchas actuales por la justicia para las mujeres desaparecidas y asesinadas.</p>
+                    <a href="https://example.com/debanhi-escobar" class="link-button">Leer más</a>
                 </div>
             </div>
         </div>
@@ -331,6 +376,24 @@
             // Inicializar
             animateMainTitle();
             animateTimelineItems();
+            
+            // Hacer que las imágenes sean interactivas
+            const timelineImages = document.querySelectorAll('.timeline-image');
+            timelineImages.forEach(image => {
+                image.addEventListener('click', function() {
+                    // Encontrar el enlace "Leer más" asociado con esta imagen
+                    const parentContent = this.closest('.timeline-content');
+                    const link = parentContent.querySelector('.link-button');
+                    if (link && link.href) {
+                        window.open(link.href, '_blank');
+                    }
+                });
+            });
+            
+            // Añadir tooltip para mejorar la experiencia de usuario
+            timelineImages.forEach(image => {
+                image.title = "Haz clic para ver más información";
+            });
         });
     </script>
 </body>
